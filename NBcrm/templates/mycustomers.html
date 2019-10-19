@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div><h1 class="box-title">个人客户信息展示</h1></div>
+{#                         <a href="{% url 'add' %}" class="btn btn-primary pull-right" style="margin-left: 50px">添加</a>#}
+                        <form action="{% url 'se' %}" method="get" class="pull-right">
+                            <input type="text" name="wd" class="form-control pull-right" style="width: 150px">
+                            <select name="condition" id="" class="form-control pull-right" style="width: 80px">
+                                <option value="name__contains">姓名</option>
+                                <option value="qq__contains">QQ</option>
+                            </select>
+                             <button class="pull-right btn btn-default">搜索</button>
+                        </form>
+{#                        批量操作#}
+                        <form action="{% url 'batch' %}" method="post" class="">
+                            {% csrf_token %}
+                            <select name="action" id="" class="form-control pull-left" style="width: 150px">
+                                <option value="batch_delete">批量删除</option>
+                                <option value="batch_update">批量更新客户状态</option>
+{#                                <option value="reverse_gs">公户转私户</option>#}
+                                <option value="reverse_sg">私户转公户</option>
+
+                            </select>
+                            <button type="submit" class="btn pull-left btn-warning">提交</button>
+
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                    <h3>{{ flag }}</h3>
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="choose"></th>
+                                <th>序号</th>
+                                <th>qq</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>客户来源</th>
+{#                                <th>转介绍自学员</th>#}
+                                <th>咨询课程</th>
+                                <th>选择客户此时的状态</th>
+                                <th>销售</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for customer in all_customers %}
+                                    <tr>
+                                        <td><input type="checkbox" name="selected_id" value="{{ customer.pk }}"></td>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ customer.qq }}</td>
+                                        <td>{{ customer.name }}</td>
+                                        <td>{{ customer.get_sex_display }}</td>
+                                        <td>{{ customer.get_source_display }}</td>
+{#                                        <td>{{ customer.introduce_from.name }}</td>#}
+                                        <td>{{ customer.course }}</td>
+                                        <td>{{ customer.get_status_display|default:'未报名' }}</td>
+                                        <td>{{ customer.consultant.username|default:'暂无' }}</td>
+{#                                        <td>{{ customer.get_classlist }}</td>#}
+                                        <td>
+                                            <a href="{% url 'edit' customer.pk %}" class="btn btn-warning">编辑</a>
+                                            <a href="{% url 'delete' customer.pk %}" class="btn btn-danger">删除</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                     </div>
+                    <!-- /.box-body -->
+                    </form>
+                </div>
+                <!-- /.box -->
+                 </div>
+            <!-- /.col -->
+             </div>
+         </div>
+        <!-- /.row -->
+    </section>
+
+{{ ret_html|safe }}
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+    $('#choose').click(function () {
+        var status=$(this).prop('checked')
+        $('[name=selected_id]').prop('checked',status);
+
+    })
+    </script>
+{% endblock %}
+

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+
+    <section class="content-header">
+      <h1>
+        课程记录
+        <small>展示</small>
+      </h1>
+
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+      </ol>
+    </section>
+
+    <section class="">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+
+            <a href="{% url 'add_record' %}" class="btn btn-primary pull-right">添加记录</a>
+
+            <form action="" method="post">
+              {% csrf_token %}
+              <select name="action" id="" class="form-control" style="width: 200px;display: inline-block">
+                <option value="batch_create">批量创建学生学习记录</option>
+
+
+              </select>
+              <button class="btn btn-danger" style="vertical-align: 1px;">go</button>
+
+
+              <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>
+                      <input type="checkbox" id="choose">
+                    </th>
+                    <th>序号</th>
+                    <th>班级</th>
+                    <th>节次</th>
+                    <th>老师</th>
+                    <th>本节课程标题</th>
+                    <th>学详</th>
+                    <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for record in all_obj %}
+                    <tr>
+                      <td><input type="checkbox" name="selected_id" value="{{ record.pk }}"></td>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ record.class_obj }}</td>
+                      <td>{{ record.day_num }}</td>
+                      <td>{{ record.teacher }}</td>
+                      <td>{{ record.course_title }}</td>
+                      <td><a href="{% url 'study_decord' record.pk %}">学详</a></td>
+                      <td>
+
+                        <a href="{% url 'edit_record' record.pk %}" class="btn btn-warning btn-xs">编辑</a>
+                        <a href="{% url 'del_record' record.pk %}" class="btn btn-danger btn-xs">删除</a>
+                      </td>
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+
+
+
+{% endblock %}
+
+{% block js %}
+  <script>
+      $('#choose').click(function () {
+          var status = $(this).prop('checked');
+          $('[name=selected_id]').prop('checked', status);
+
+      })
+  </script>
+
+{% endblock %}
+

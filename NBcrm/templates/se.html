@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>这是se</h1>
+<form action="" method="get">
+    <select name="condition" id="">
+        <option value="name">姓名</option>
+        <option value="qq">QQ</option>
+    </select>
+    <input type="text" name="wd"> <button>搜索</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>QQ</th>
+            <th>名称</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in all_data %}
+            <tr>
+                <td>{{ data.qq }}</td>
+                <td>{{ data.name }}</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{{ ret_html|safe }}
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <form action="{% url 'add' %}" method="post">
+    {% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-xs-8">
+            {% for form in form_obj %}
+                <label for="{{ form.id_for_label }}">{{ form.label }}</label>
+                {{ form }}
+                <span class="text-danger">{{ form.errors.0 }}</span>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+<button  type="submit" class="btn btn-primary">添加</button>
+
+</div>
+{% endblock %}
+
+</form>
+
+
+

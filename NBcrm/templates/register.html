@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+<h1>这是注册页面</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form action="{% url 'register' %}" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form_obj %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        <span class="text-danger">{{ field.errors.0 }}</span>
+                    </div>
+
+                {% endfor %}
+
+                <input type="submit" class="btn btn-success pull-right" value="注册">
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="{% static 'jquery-3.4.1.js' %}"></script>
+<script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+<script>
+
+
+</script>
+</body>
+</html>

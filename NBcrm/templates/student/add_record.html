@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="" class="" method="post">
+    {% csrf_token %}
+    {% for o in form_obj %}
+        <label for="o.id_for_label">{{ o.label }}</label>
+        {{ o }}
+
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">OJBK</button>
+    </form>
+
+{% endblock %}

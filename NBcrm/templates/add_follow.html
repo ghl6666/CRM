@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form_obj %}
+
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+        
+
+        {{ field }}
+        <span class="text-danger">{{ field.errors.0 }}</span>
+
+
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">添加</button>
+</form>
+</div>
+{% endblock %}

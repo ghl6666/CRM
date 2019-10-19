@@ -1,0 +1,24 @@
+<div class="multi-menu">
+            {#主页#}
+            <div class="title_1">
+                <a class="btn btn-primary" style="width: 230px" href="{% url 'index' %}" > <i class=""></i> 主页</a>
+            </div>
+
+
+    {% for item in menu_dict.values %}
+
+        <div class="item">
+            <div class="title">
+                <i class="{{ item.icon }} btn btn-primary" style="width: 230px;height: 30px">{{ item.title }}</i>
+            </div>
+            {% for child in item.children %}
+                <div class="body {{ item.class }} ">
+                    <a href="{{ child.url }}" class="{{ child.class }} btn btn-default " style="width: 230px;">{{ child.title }}</a>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
